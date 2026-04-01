@@ -23,6 +23,7 @@
                     colors: {
                         brand: {
                             light: '#FAF9F6',
+                            beige: '#E5D3B3',
                             gold: '#C5A880',
                             dark: '#000000',
                             muted: '#4B4B4B'
@@ -65,52 +66,70 @@
         .page-section.active {
             display: block;
             opacity: 1;
-            animation: fadeIn 0.6s ease-out forwards;
+            animation: fadeIn 0.8s ease-out forwards;
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
+            from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        .standard-card {
-            background: white;
-            border: 1px solid rgba(0, 0, 0, 0.03);
-            transition: all 0.4s ease;
-        }
-
-        .btn-action {
-            background: #000000;
+        /* Veredelte Beige Buttons */
+        .btn-beige {
+            position: relative;
+            overflow: hidden;
+            background: #D4BC96;
             color: white;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            display: flex;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            letter-spacing: 0.4em;
+            text-transform: uppercase;
+            font-size: 11px;
+            font-weight: 600;
+            padding: 1.25rem 2.5rem;
+            border-radius: 4px;
+            display: inline-flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
+            min-width: 240px;
+            box-shadow: 0 10px 25px rgba(212, 188, 150, 0.2);
         }
-        .btn-action:hover {
+
+        .btn-beige::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -60%;
+            width: 20%;
+            height: 200%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: rotate(30deg);
+            transition: all 0.7s;
+        }
+
+        .btn-beige:hover {
             background: #C5A880;
-            transform: translateY(-2px);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(197, 168, 128, 0.4);
+            color: white;
         }
 
-        #navbar {
-            transition: all 0.3s ease;
+        .btn-beige:hover::after {
+            left: 120%;
         }
 
-        #mobile-menu {
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            max-height: 0;
-            opacity: 0;
-            overflow: hidden;
-        }
-        #mobile-menu.active {
-            max-height: 100vh;
-            opacity: 1;
-            padding-bottom: 3rem;
+        .btn-beige-outline {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid #D4BC96;
+            color: #D4BC96;
+            backdrop-filter: blur(10px);
         }
 
-        /* Nav Logo Styling - 100% größer (von 55px auf 110px) */
+        .btn-beige-outline:hover {
+            background: #D4BC96;
+            color: white;
+            border-color: #D4BC96;
+        }
+
         .nav-logo-container {
             position: relative;
             height: 100%;
@@ -125,68 +144,86 @@
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
-            z-index: 10;
+            z-index: 100;
         }
-        
-        .nav-logo-img:hover {
-            transform: translateY(-50%) scale(1.05);
+
+        .hero-overlay {
+            background: linear-gradient(to bottom, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.5) 100%);
+        }
+
+        @keyframes slowZoom {
+            from { transform: scale(1); }
+            to { transform: scale(1.1); }
+        }
+        .animate-slow-zoom {
+            animation: slowZoom 20s infinite alternate linear;
+        }
+
+        .booking-gradient {
+            background: linear-gradient(135deg, #FAF9F6 0%, #F3F0E9 100%);
+        }
+
+        .booking-logo-large {
+            height: 140px;
+            width: auto;
+            object-fit: contain;
         }
     </style>
 </head>
 <body class="flex flex-col min-h-screen">
 
     <!-- Navigation -->
-    <nav class="fixed w-full z-[100] bg-white/95 backdrop-blur-md border-b border-gray-100" id="navbar">
+    <nav class="fixed w-full z-[100] bg-white/90 backdrop-blur-xl border-b border-gray-100" id="navbar">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-16 md:h-20">
-                <!-- Logo oben links (100% größer, absolut positioniert) -->
                 <div class="nav-logo-container w-24 md:w-32">
                     <a href="javascript:void(0)" onclick="navigateTo('home')" class="flex items-center">
                         <img src="https://s1.directupload.eu/images/260401/imj9vgvu.png" alt="KRISTINA BEAUTY Logo" class="nav-logo-img transition-all duration-300">
                     </a>
                 </div>
 
-                <!-- Desktop Navigation -->
-                <div class="hidden md:flex items-center space-x-10">
-                    <button onclick="navigateTo('home')" class="text-brand-dark hover:text-brand-gold transition-colors text-[10px] font-bold tracking-[0.2em] uppercase">Studio</button>
-                    <button onclick="navigateTo('treatments')" class="text-brand-dark hover:text-brand-gold transition-colors text-[10px] font-bold tracking-[0.2em] uppercase">Preisliste</button>
-                    <button onclick="navigateTo('booking')" class="text-brand-dark hover:text-brand-gold transition-colors text-[10px] font-bold tracking-[0.2em] uppercase">Buchung</button>
-                    <button onclick="navigateTo('contact')" class="text-brand-dark hover:text-brand-gold transition-colors text-[10px] font-bold tracking-[0.2em] uppercase">Kontakt</button>
+                <div class="hidden md:flex items-center space-x-12">
+                    <button onclick="navigateTo('home')" class="text-brand-dark hover:text-brand-gold transition-colors text-[10px] font-bold tracking-[0.25em] uppercase">Studio</button>
+                    <button onclick="navigateTo('treatments')" class="text-brand-dark hover:text-brand-gold transition-colors text-[10px] font-bold tracking-[0.25em] uppercase">Preisliste</button>
+                    <button onclick="navigateTo('booking')" class="text-brand-dark hover:text-brand-gold transition-colors text-[10px] font-bold tracking-[0.25em] uppercase">Buchung</button>
+                    <button onclick="navigateTo('contact')" class="text-brand-dark hover:text-brand-gold transition-colors text-[10px] font-bold tracking-[0.25em] uppercase">Kontakt</button>
                 </div>
                 
-                <!-- Mobile Menu Button -->
                 <button id="mobile-menu-btn" class="md:hidden text-brand-dark p-2">
                     <i class="fas fa-bars-staggered text-xl"></i>
                 </button>
             </div>
         </div>
 
-        <!-- Mobiles Menü -->
-        <div id="mobile-menu" class="md:hidden bg-white border-t border-gray-100 flex flex-col text-center">
-            <div class="flex flex-col space-y-2 py-8">
-                <button onclick="navigateTo('home')" class="block w-full py-4 text-brand-dark tracking-[0.2em] uppercase text-sm font-bold border-b border-gray-50">Studio</button>
-                <button onclick="navigateTo('treatments')" class="block w-full py-4 text-brand-dark tracking-[0.2em] uppercase text-sm font-bold border-b border-gray-50">Preisliste</button>
-                <button onclick="navigateTo('booking')" class="block w-full py-4 text-brand-dark tracking-[0.2em] uppercase text-sm font-bold border-b border-gray-50">Buchung</button>
-                <button onclick="navigateTo('contact')" class="block w-full py-4 text-brand-dark tracking-[0.2em] uppercase text-sm font-bold border-b border-gray-50">Kontakt</button>
+        <div id="mobile-menu" class="hidden bg-white border-t border-gray-100 flex-col text-center">
+            <div class="flex flex-col space-y-1 py-8">
+                <button onclick="navigateTo('home')" class="py-4 text-brand-dark tracking-[0.2em] uppercase text-xs font-bold">Studio</button>
+                <button onclick="navigateTo('treatments')" class="py-4 text-brand-dark tracking-[0.2em] uppercase text-xs font-bold">Preisliste</button>
+                <button onclick="navigateTo('booking')" class="py-4 text-brand-dark tracking-[0.2em] uppercase text-xs font-bold">Buchung</button>
+                <button onclick="navigateTo('contact')" class="py-4 text-brand-dark tracking-[0.2em] uppercase text-xs font-bold">Kontakt</button>
             </div>
-            <!-- Logo am Ende des mobilen Menüs -->
             <div class="pb-10 flex flex-col items-center justify-center">
-                <img src="https://s1.directupload.eu/images/260401/imj9vgvu.png" alt="KRISTINA BEAUTY Logo" class="h-48 w-48 object-contain">
+                <img src="https://s1.directupload.eu/images/260401/imj9vgvu.png" alt="KRISTINA BEAUTY Logo" class="h-32 w-32 object-contain">
             </div>
         </div>
     </nav>
 
-    <main class="flex-grow pt-16 md:pt-20">
+    <main class="flex-grow">
 
-        <!-- STARTSEITE / DECKBLATT -->
+        <!-- STARTSEITE -->
         <section id="page-home" class="page-section active">
-            <div class="h-[85vh] relative flex items-center justify-center overflow-hidden bg-black">
-                <div class="absolute inset-0 opacity-60 bg-[url('https://s1.directupload.eu/images/260401/h9ag4qr9.jpg')] bg-cover bg-center"></div>
-                <div class="relative z-10 text-center px-6 flex flex-col items-center">
-                    <h1 class="font-serif text-5xl md:text-8xl text-white mb-12 leading-tight tracking-[0.25em] uppercase drop-shadow-lg">KRISTINA BEAUTY</h1>
-                    <div class="flex flex-col sm:flex-row gap-6 justify-center">
-                        <button onclick="navigateTo('treatments')" class="btn-action px-12 py-5 text-[10px] font-bold tracking-[0.3em] uppercase rounded-lg shadow-2xl">Preisliste ansehen</button>
-                        <a href="https://beautinda.de/artist/ObQbXZKAv9f5lrzYyitvlUNmkK03?utm_source=ig&utm_medium=social&utm_content=link_in_bio" target="_blank" class="border-2 border-brand-gold text-brand-gold px-12 py-5 hover:bg-brand-gold hover:text-black transition-all text-[10px] font-bold tracking-[0.3em] uppercase rounded-lg backdrop-blur-md flex items-center justify-center">Termin buchen</a>
+            <div class="h-screen relative flex items-center justify-center overflow-hidden bg-black">
+                <div class="absolute inset-0 bg-[url('https://s1.directupload.eu/images/260401/h9ag4qr9.jpg')] bg-cover bg-center opacity-80 animate-slow-zoom"></div>
+                <div class="absolute inset-0 hero-overlay"></div>
+                
+                <div class="relative z-10 w-full max-w-4xl px-6 flex flex-col items-center mt-32">
+                    <div class="flex flex-col md:flex-row gap-6 md:gap-10 justify-center items-center w-full">
+                        <button onclick="navigateTo('treatments')" class="btn-beige">
+                            Preisliste
+                        </button>
+                        <button onclick="navigateTo('booking')" class="btn-beige btn-beige-outline">
+                            Termin buchen
+                        </button>
                     </div>
                 </div>
             </div>
@@ -194,41 +231,88 @@
 
         <!-- PREISLISTE -->
         <section id="page-treatments" class="page-section">
-            <div class="py-20">
-                <div class="text-center mb-16 px-4">
-                    <h2 class="font-serif text-4xl md:text-5xl mb-4 tracking-wide">Unsere Preise</h2>
-                    <div class="w-16 h-px bg-brand-gold mx-auto"></div>
+            <div class="py-32 bg-brand-light">
+                <div class="text-center mb-20 px-4">
+                    <h2 class="font-serif text-4xl md:text-5xl mb-6 tracking-widest uppercase">Preisliste</h2>
+                    <div class="w-20 h-0.5 bg-brand-gold mx-auto"></div>
                 </div>
-                <div class="max-w-7xl mx-auto px-4">
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="full-price-list"></div>
+                <div class="max-w-7xl mx-auto px-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10" id="full-price-list"></div>
                 </div>
             </div>
         </section>
 
         <!-- BUCHUNG -->
         <section id="page-booking" class="page-section">
-            <div class="py-24 flex justify-center px-4 bg-brand-light">
-                <div class="w-full max-w-xl bg-white p-10 md:p-14 rounded-[3rem] shadow-2xl border border-gray-100 text-center">
-                    <div class="mb-12 text-center flex flex-col items-center">
-                        <h2 class="font-serif text-4xl mb-4 tracking-wide">Termin buchen</h2>
-                        <div class="w-12 h-px bg-brand-gold mx-auto mt-4"></div>
+            <div class="min-h-screen flex flex-col items-center justify-center py-20 px-6 mt-16">
+                <div class="max-w-6xl w-full bg-white rounded-[3rem] overflow-hidden shadow-2xl flex flex-col lg:flex-row">
+                    
+                    <!-- Bild Spalte -->
+                    <div class="lg:w-1/2 relative min-h-[400px]">
+                        <div class="absolute inset-0 bg-[url('https://s1.directupload.eu/images/260401/kys8irnq.jpg')] bg-cover bg-center"></div>
+                        <div class="absolute inset-0 bg-brand-dark/30 backdrop-blur-[1px]"></div>
+                        <div class="relative z-10 h-full p-12 flex flex-col justify-between text-white">
+                            <div>
+                                <h2 class="font-serif text-4xl mb-6 tracking-wide">Dein Moment der Entspannung</h2>
+                                <p class="text-white/90 font-light leading-relaxed mb-8">
+                                    Professionelle Behandlungen in privater Atmosphäre. Ich nehme mir persönlich Zeit für deine Schönheit.
+                                </p>
+                            </div>
+                            
+                            <div class="space-y-6">
+                                <div class="flex items-center space-x-4">
+                                    <div class="w-10 h-10 rounded-full border border-white/30 flex items-center justify-center">
+                                        <i class="fas fa-check text-xs"></i>
+                                    </div>
+                                    <span class="text-[10px] uppercase tracking-[0.2em] font-medium">Einfache Online-Buchung</span>
+                                </div>
+                                <div class="flex items-center space-x-4">
+                                    <div class="w-10 h-10 rounded-full border border-white/30 flex items-center justify-center">
+                                        <i class="fas fa-heart text-xs"></i>
+                                    </div>
+                                    <span class="text-[10px] uppercase tracking-[0.2em] font-medium">Persönliche Betreuung</span>
+                                </div>
+                                <div class="flex items-center space-x-4">
+                                    <div class="w-10 h-10 rounded-full border border-white/30 flex items-center justify-center">
+                                        <i class="fas fa-clock text-xs"></i>
+                                    </div>
+                                    <span class="text-[10px] uppercase tracking-[0.2em] font-medium">Flexible Terminwahl</span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="space-y-10">
-                        <p class="text-base text-gray-700 leading-relaxed font-medium">
-                            Für eine reibungslose Planung nutzen wir Beautinda. Klicke einfach auf den Button unten, um deinen Wunschtermin direkt online zu reservieren.
-                        </p>
-                        <a href="https://beautinda.de/artist/ObQbXZKAv9f5lrzYyitvlUNmkK03?utm_source=ig&utm_medium=social&utm_content=link_in_bio" target="_blank" class="btn-action w-full py-6 text-[11px] font-bold tracking-[0.4em] uppercase rounded-2xl inline-flex shadow-xl">
-                            Beautinda öffnen <i class="fas fa-external-link-alt ml-3"></i>
+
+                    <!-- Buchungs-CTA Spalte -->
+                    <div class="lg:w-1/2 p-12 md:p-20 flex flex-col justify-center items-center text-center booking-gradient">
+                        <div class="mb-10 flex flex-col items-center">
+                            <img src="https://s1.directupload.eu/images/260401/imj9vgvu.png" alt="KRISTINA BEAUTY Logo" class="booking-logo-large mb-10 opacity-90">
+                            
+                            <span class="text-brand-gold text-[10px] font-bold tracking-[0.4em] uppercase block mb-4">Reservierung</span>
+                            <h3 class="font-serif text-3xl md:text-4xl text-brand-dark mb-6">Dein Termin bei mir</h3>
+                            <p class="text-gray-500 font-light mb-10 max-w-sm">
+                                Wähle deine gewünschte Behandlung und finde deinen passenden Termin bequem über mein Partnerportal Beautinda. Ich freue mich auf dich!
+                            </p>
+                        </div>
+
+                        <a href="https://beautinda.de/artist/ObQbXZKAv9f5lrzYyitvlUNmkK03" target="_blank" class="btn-beige !bg-brand-dark hover:!bg-brand-gold !min-w-[280px]">
+                            JETZT TERMIN WÄHLEN
                         </a>
+
+                        <div class="mt-12 pt-12 border-t border-gray-200 w-full max-w-xs">
+                            <p class="text-[9px] uppercase tracking-[0.2em] text-gray-400">
+                                Fragen zu einer Behandlung? <br>
+                                <a href="javascript:void(0)" onclick="navigateTo('contact')" class="text-brand-gold hover:underline">Schreib mir gerne</a>
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- KONTAKT -->
+        <!-- KONTAKT (Übernommen wie gewünscht) -->
         <section id="page-contact" class="page-section">
-            <div class="py-24 max-w-7xl mx-auto px-4 text-center">
-                <h2 class="font-serif text-4xl md:text-5xl mb-16 tracking-wide">Kontakt & Standort</h2>
+            <div class="py-24 max-w-7xl mx-auto px-6 text-center">
+                <h2 class="font-serif text-4xl md:text-5xl mb-16 tracking-widest uppercase">Kontakt & Standort</h2>
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 text-left bg-white p-10 md:p-16 rounded-[3rem] border border-gray-100 shadow-sm">
                     <div class="space-y-12 flex flex-col justify-center">
                         <div>
@@ -273,20 +357,20 @@
 
     </main>
 
-    <footer class="bg-black text-white py-12 px-4 text-center">
+    <footer class="bg-black text-white py-16 text-center">
         <p class="text-[10px] tracking-[0.5em] uppercase opacity-30">&copy; 2026 KRISTINA BEAUTY Wedel</p>
     </footer>
 
     <script>
         const fullPriceListData = {
-            "Skin Care": [
+            "Hautpflege": [
                 { name: "Microneedling", price: 85 },
                 { name: "Microneedling Deluxe", price: 95 },
                 { name: "Aquafacial", price: 90 },
                 { name: "BB Glow", price: 80 },
                 { name: "BB Glow Augenringe", price: 36 }
             ],
-            "Lashes": [
+            "Wimpern": [
                 { name: "1:1 Classic Lashes", price: 75 },
                 { name: "Wet Look / Angelset Neu", price: 85 },
                 { name: "Hybrid Lashes Neu", price: 85 },
@@ -300,7 +384,7 @@
                 { name: "Wimpern entfernen", price: 10 },
                 { name: "Foxy Lashes", price: 95 }
             ],
-            "Brows": [
+            "Augenbrauen": [
                 { name: "Browlifting inkl. Farbe/Shape", price: 45 },
                 { name: "Farbe", price: 6 },
                 { name: "Shape", price: 6 },
@@ -329,20 +413,23 @@
                 target.classList.add('active');
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             }
-            document.getElementById('mobile-menu').classList.remove('active');
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.add('hidden');
         }
 
         const priceListContainer = document.getElementById('full-price-list');
         for (const [category, items] of Object.entries(fullPriceListData)) {
             const card = document.createElement('div');
-            card.className = "standard-card p-10 md:p-12 rounded-[2.5rem] shadow-sm hover:shadow-xl transition-all";
-            card.innerHTML = `<h3 class="text-[12px] font-black tracking-[0.2em] uppercase text-brand-gold mb-10 border-b border-brand-gold/10 pb-6">${category}</h3>` + 
-                items.map(i => `<div class="price-item"><span class="font-bold text-[10px] uppercase tracking-wider text-left pr-2">${i.name}</span><div class="price-dots"></div><span class="font-serif text-brand-gold text-base font-bold whitespace-nowrap">${i.price} €</span></div>`).join('');
+            card.className = "bg-white p-10 md:p-12 rounded-[2.5rem] shadow-sm hover:shadow-xl transition-all duration-500 border border-gray-50";
+            card.innerHTML = `<h3 class="text-[11px] font-bold tracking-[0.3em] uppercase text-brand-gold mb-10 text-center border-b border-gray-50 pb-6">${category}</h3>` + 
+                items.map(i => `<div class="price-item"><span class="font-medium text-[10px] uppercase tracking-wider">${i.name}</span><div class="price-dots"></div><span class="font-serif text-brand-gold font-bold">${i.price} €</span></div>`).join('');
             priceListContainer.appendChild(card);
         }
 
         document.getElementById('mobile-menu-btn').onclick = () => {
-            document.getElementById('mobile-menu').classList.toggle('active');
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+            menu.classList.toggle('flex');
         };
     </script>
 </body>
