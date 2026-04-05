@@ -43,12 +43,16 @@
     </script>
 
     <style>
+        /* Quelltext-Schutz: Textmarkierung verhindern */
         body {
             background-color: #FAF9F6;
             color: #000000;
             -webkit-font-smoothing: antialiased;
             overflow-x: hidden;
             font-family: 'Montserrat', sans-serif;
+            -webkit-user-select: none; /* Safari */
+            -ms-user-select: none; /* IE 10+ and Edge */
+            user-select: none; /* Standard */
         }
         
         .price-item {
@@ -168,8 +172,40 @@
             height: 100%;
         }
     </style>
+
+    <!-- Quelltext-Schutz JavaScript: Rechtsklick & Tasten sperren -->
+    <script type="text/javascript">
+        // Rechtsklick Menü deaktivieren
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+        }, false);
+
+        // Entwickler-Tools und Quelltext-Kürzel sperren
+        document.onkeydown = function(e) {
+            // F12 Taste
+            if (e.keyCode == 123) {
+                return false;
+            }
+            // Strg + Shift + I (Inspektor)
+            if (e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) {
+                return false;
+            }
+            // Strg + Shift + J (Konsole)
+            if (e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) {
+                return false;
+            }
+            // Strg + U (Quelltext anzeigen)
+            if (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) {
+                return false;
+            }
+            // Strg + S (Speichern)
+            if (e.ctrlKey && e.keyCode == 'S'.charCodeAt(0)) {
+                return false;
+            }
+        };
+    </script>
 </head>
-<body class="flex flex-col min-h-screen">
+<body class="flex flex-col min-h-screen" ondragstart="return false;" ondrop="return false;">
 
     <!-- Navigation -->
     <nav class="fixed w-full z-[100] bg-white/95 backdrop-blur-xl border-b border-gray-100" id="navbar">
